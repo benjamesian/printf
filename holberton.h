@@ -20,6 +20,6 @@ char *(*get_type(char *))(unsigned int, ...);
 int print(char *);
 
 char *ctoa(char);
-char *itoa(int);
+char *ntoa(long long);
 
 #endif
