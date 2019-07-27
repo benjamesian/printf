@@ -1,4 +1,4 @@
-B#ifndef _HOLBERTON_H_
+#ifndef _HOLBERTON_H_
 #define _HOLBERTON_H_
 
 #include <stdlib.h>
@@ -12,16 +12,17 @@ B#ifndef _HOLBERTON_H_
  */
 typedef struct spec
 {
-	char c;
-	char *(*f)(int, ...);
+	char *s;
+	char *(*f)(va_list);
 } spec_t;
 
 int _printf(const char *format, ...);
-char *(*get_type(char *))(unsigned int, ...);
+char *(*get_type(char *))(va_list);
 int print(char *);
 
-char *ctoa(char);
-char *ntoa(long long);
+char *ctoa(va_list);
+char *stoa(va_list);
+char *ntoa(va_list);
 char *pcttoa(void);
 
 int _strlen(char *s);
