@@ -14,6 +14,8 @@ char *storot13(va_list valist)
 
 	s = va_arg(valist, char *);
 	dest = malloc(sizeof(*dest) * (_strlen(s) + 1));
+	if (!dest)
+		return (NULL);
 
 	c = *s;
 	i = 0;
