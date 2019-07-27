@@ -7,8 +7,9 @@
  * Return: On success pointer to newly allocated string.
  * On error, NULL is returned.
  */
-char *ctoa(char c)
+char *ctoa(va_list valist)
 {
+	char c = va_arg(valist, int);
 	char *s = malloc(sizeof(char) * 2);
 
 	if (!s)
