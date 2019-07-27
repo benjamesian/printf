@@ -1,7 +1,8 @@
-#ifndef _HOLBERTON_H_
+B#ifndef _HOLBERTON_H_
 #define _HOLBERTON_H_
 
 #include <stdlib.h>
+#include <stdarg.h>
 
 /**
  * struct spec - conversion specifiers and their associated functions
@@ -22,5 +23,7 @@ int print(char *);
 char *ctoa(char);
 char *ntoa(long long);
 char *pcttoa(void);
+
+int _strlen(char *s);
 
 #endif
