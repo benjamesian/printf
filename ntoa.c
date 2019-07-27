@@ -46,9 +46,10 @@ void rev_string(char *s)
  * Return: On success pointer to newly allocated string.
  * On error, NULL is returned.
  */
-char *ntoa(long long n)
+char *ntoa(va_list valist)
 {
 	int digits = 0, is_negative = 0;
+	long long n = va_arg(valist, long long);
 	long long copy = n;
 	char *s;
 
