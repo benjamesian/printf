@@ -6,7 +6,7 @@
  * Return: On success pointer to newly allocated string.
  * On error, NULL is returned.
  */
-char *pcttoa(void)
+char *pcttoa(va_list valist)
 {
 	char *s = malloc(sizeof(char) * 2);
 
