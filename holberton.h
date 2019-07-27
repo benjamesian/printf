@@ -12,7 +12,7 @@ B#ifndef _HOLBERTON_H_
  */
 typedef struct spec
 {
-	char *s;
+	char c;
 	char *(*f)(int, ...);
 } spec_t;
 
