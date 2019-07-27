@@ -25,8 +25,11 @@ char *ctoa(va_list);
 char *stoa(va_list);
 char *ntoa(va_list);
 char *pcttoa(va_list);
+char *storot13(va_list valist);
+char *storev(va_list valist);
 
 int _strlen(char *s);
 char *_strncpy(char *dest, const char *src, int n);
+char *_strdup(char *str);
 
 #endif
