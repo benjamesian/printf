@@ -51,7 +51,7 @@ int get_printable_length(char *s)
 
 	for (i = 0, j = 0; s[i] != '\0'; i++, j++)
 	{
-		is_escaped = (s[len] == '\\' && !is_escaped);
+		is_escaped = (s[i] == '\\' && !is_escaped);
 		if (is_escaped)
 			j--;
 	}
@@ -91,7 +91,7 @@ int _printf(const char *format, ...)
 		else
 		{
 			current_len = get_substring_length(format + i);
-			
+			(*get_type)(valist);
 		}
 		i += current_len;
 		buffer_elements++;
