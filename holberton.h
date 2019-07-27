@@ -21,5 +21,6 @@ int print(char *);
 
 char *ctoa(char);
 char *ntoa(long long);
+char *pcttoa(void);
 
 #endif
