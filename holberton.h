@@ -23,8 +23,9 @@ int print(char *);
 char *ctoa(va_list);
 char *stoa(va_list);
 char *ntoa(va_list);
-char *pcttoa(void);
+char *pcttoa(va_list);
 
 int _strlen(char *s);
+char *_strncpy(char *dest, const char *src, int n);
 
 #endif
