@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 /**
  * struct spec - conversion specifiers and their associated functions
