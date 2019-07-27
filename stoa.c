@@ -11,14 +11,14 @@ char *stoa(va_list valist)
 {
 	int i;
 	char *string = va_arg(valist, char *);
-	char *s = malloc(sizeof(char) * _strlen(string));
+	char *s = malloc(sizeof(char) * (_strlen(string) + 1));
 
 	if (!s)
 		return (NULL);
 
 	for (i = 0; string[i] != '\0'; i++)
 		s[i] = string[i];
-	s[1] = '\0';
+	s[i + 1] = '\0';
 
 	return (s);
 }
