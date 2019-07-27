@@ -17,7 +17,7 @@ int is_valid_specifier_char(char c)
  *
  * Return: number of characters from initial character to character specifier
  */
-int get_substring_length(char *s)
+int get_substring_length(const char *s)
 {
 	int len, is_escaped = 0;
 
@@ -34,7 +34,7 @@ int get_substring_length(char *s)
  * Return: On success number of characters in character specifier
  * On error (invalid specifier), 0 is returned.
  */
-int get_specifier_length(char *s)
+int get_specifier_length(const char *s)
 {
 	return (1);
 }
@@ -45,7 +45,7 @@ int get_specifier_length(char *s)
  *
  * Return: printable length
  */
-int get_printable_length(char *s)
+int get_printable_length(const char *s)
 {
 	int i, j, is_escaped = 0;
 
@@ -69,7 +69,7 @@ int get_printable_length(char *s)
 int _printf(const char *format, ...)
 {
 	int i, buffer_elements = 0, total_length = 0, current_len;
-	char next = '\0';
+	char *spec, *elem;
 	char **buffer;
 	va_list valist;
 
@@ -84,16 +84,32 @@ int _printf(const char *format, ...)
 	va_start(valist, format);
 
 /* get number of strings to store in buffer */
-	for (i = 0, buffer_elements = 0; format[i] != '\0'; i++)
+	i = 0;
+	buffer_elements = 0;
+	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
+		{
 			current_len = get_specifier_length(format + i);
+			spec = malloc(sizeof(*spec) * (current_len - 1));
+			if (!spec)
+				return (-3);
+
+			_strncpy(spec, format + i + 1, (current_len + 1));
+			elem = get_type(spec)(valist);
+		}
 		else
 		{
 			current_len = get_substring_length(format + i);
-			(*get_type)(valist);
+			elem = malloc(sizeof(*elem) * (current_len + 1));
+			if (!elem)
+				return (-4);
+
+			_strncpy(elem, format + i, current_len + 1);
 		}
 		i += current_len;
+
+		buffer[buffer_elements] = elem;
 		buffer_elements++;
 	}
 
