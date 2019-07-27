@@ -21,6 +21,11 @@ int _printf(const char *format, ...);
 char *(*get_type(char *))(va_list);
 int print(char *);
 
+int is_valid_specifier_char(char c);
+int get_substring_length(const char *s);
+int get_specifier_length(const char *s);
+int get_printable_length(const char *s);
+
 char *ctoa(va_list);
 char *stoa(va_list);
 char *ntoa(va_list);
