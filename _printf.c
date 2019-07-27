@@ -36,7 +36,7 @@ int get_substring_length(const char *s)
  */
 int get_specifier_length(const char *s)
 {
-	return (1);
+	return (2);
 }
 
 /**
@@ -91,11 +91,11 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			current_len = get_specifier_length(format + i);
-			spec = malloc(sizeof(*spec) * (current_len - 1));
+			spec = malloc(sizeof(*spec) * current_len);
 			if (!spec)
 				return (-3);
 
-			_strncpy(spec, format + i + 1, (current_len + 1));
+			_strncpy(spec, format + i + 1, current_len);
 			elem = get_type(spec)(valist);
 		}
 		else
