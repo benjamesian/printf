@@ -1,10 +1,12 @@
+#include "holberton.h"
+
 /**
  * get_type - Determine data type and function to convert to string
  * @s: The string
  *
  * Return: Pointer to function to convert to string
  */
-char *(*get_type(char *s))(unsigned int, ...)
+char *(*get_type(char *s))(va_list)
 {
 	spec_t specs[] = {
 		{"c", ctoa},
