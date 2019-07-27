@@ -22,6 +22,7 @@ char *(*get_type(char *s))(va_list)
 	{
 		if (specs[i].s[0] == s[0] && s[1] == '\0')
 			return (specs[i].f);
+		i++;
 	}
 
 	return (NULL);
