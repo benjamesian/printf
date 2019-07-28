@@ -41,14 +41,16 @@ void rev_string(char *s)
 
 /**
  * ntoa - convert a long long to a string
- * @c: long long to convert
+ * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
  *
- * Return: On success pointer to newly allocated string.
- * On error, NULL is returned.
+ * Return: 0 on success, 1 on allocation failure
  */
-char *ntoa(va_list valist)
+int ntoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	int digits = 0, is_negative = 0;
+	int i, digits = 0, is_negative = 0;
 	long long n = va_arg(valist, long long);
 	long long copy = n;
 	char *s;
@@ -70,7 +72,7 @@ char *ntoa(va_list valist)
 	s = malloc(sizeof(char) * (digits + is_negative + 1));
 
 	if (!s)
-		return (NULL);
+		return (1);
 
 	if (n == 0)
 	{
@@ -82,5 +84,9 @@ char *ntoa(va_list valist)
 		_ntoa_rev(n, s);
 		rev_string(s);
 	}
-	return (s);
+
+	string_to_buffer(s, buffer, pos, n_printed);
+	free(s);
+
+	return (0);
 }
