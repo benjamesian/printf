@@ -2,9 +2,12 @@
 
 /**
  * rot13 - encode a string in rot13
- * @s: A string
+ * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
  *
- * Return: Pointer to the beginning of s
+ * Return: 0 on success else 1
  */
 int storot13(va_list valist, char *buffer, int *pos, int *n_printed)
 {
