@@ -1,7 +1,7 @@
 #include "holberton.h"
 
 /**
- * rot13 - encode a string in rot13
+ * storot13 - encode a string in rot13
  * @valist: list with next argument
  * @buffer: character buffer for printing
  * @pos: position in the buffer
