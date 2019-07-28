@@ -2,9 +2,12 @@
 
 /**
  * storev - get a reversed copy of a string
- * @valist: holds string to reverse
+ * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
  *
- * Return: pointer to newly allocated reversed string
+ * Return: Always 0
  */
 int storev(va_list valist, char *buffer, int *pos, int *n_printed)
 {

@@ -3,9 +3,11 @@
 /**
  * otoa - convert an unsigned int to binary string
  * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
  *
- * Return: On success pointer to newly allocated string.
- * On error, NULL is returned.
+ * Return: Always 0
  */
 int otoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
