@@ -1,29 +1,14 @@
 #include <unistd.h>
 
 /**
- * _putchar - writes the character c to stdout
- * @c: The character to print
+ * print - print a string
+ * @buffer: string to print
+ * @n: number of bytes to print
  *
- * Return: On success 1.
+ * Return: On success n.
  * On error, -1 is returned, and errno is set appropriately.
  */
-int _putchar(char c)
+int print(char *buffer, size_t n)
 {
-	return (write(1, &c, 1));
-}
-
-/**
- * print - print a string
- * @s: string to print
- *
- * Return: length of string printed
- */
-int print(char *s)
-{
-	int length;
-
-	for (length = 0; s[length]; length++)
-		_putchar(s[length]);
-
-	return (length);
+	return (write(1, buffer, n));
 }

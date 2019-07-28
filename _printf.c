@@ -12,7 +12,7 @@
  */
 void get_next_elem(const char *format, int i, int *width, va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	int current_len;
+	int j, current_len;
 	char *spec;
 
 	if (format[i] == '%')
@@ -21,18 +21,22 @@ void get_next_elem(const char *format, int i, int *width, va_list valist, char *
 
 		spec = malloc(sizeof(*spec) * current_len);
 		if (!spec)
-            exit(98);
+			exit(98);
 
-		_strncpy(spec, format + i + 1, current_len - 1);
+//		_strncpy(spec, format + i + 1, current_len - 1);
 		get_type(spec)(valist, buffer, pos, n_printed);
 
-        free(spec);
+		free(spec);
 	}
 	else
 	{
 		current_len = get_substring_length(format + i);
-
-//		_strncpy(buffer + (*pos), format + i, current_len);
+		for (j = 0; j < current_len; j++)
+		{
+			buffer_full(buffer, pos, n_printed);
+			buffer[*pos] = format[i + j];
+			pos++;
+		}
 	}
 	*width = current_len;
 }
@@ -52,6 +56,8 @@ int _printf(const char *format, ...)
 
 	if (!format)
 		return (-1);
+
+	buffer[BUFFER_SIZE - 1] = '\0';
 
 	va_start(valist, format);
 	while (format[i] != '\0')
