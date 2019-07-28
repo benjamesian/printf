@@ -15,6 +15,6 @@ void string_to_buffer(char *s, char *buffer, int *pos, int *n_printed)
 	{
 		buffer_full(buffer, pos, n_printed);
 		buffer[*pos] = s[i];
-		pos++;
+		(*pos)++;
 	}
 }

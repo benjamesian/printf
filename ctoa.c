@@ -15,7 +15,7 @@ int ctoa(va_list valist, char *buffer, int *pos, int *n_printed)
 
 	buffer_full(buffer, pos, n_printed);
 	buffer[*pos] = c;
-	*pos++;
+	(*pos)++;
 
 	return (0);
 }
