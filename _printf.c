@@ -23,7 +23,6 @@ void get_next_elem(const char *format, int i, int *width, va_list valist, char *
 		if (!spec)
 			exit(98);
 
-//		_strncpy(spec, format + i + 1, current_len - 1);
 		get_type(spec)(valist, buffer, pos, n_printed);
 
 		free(spec);
@@ -31,11 +30,12 @@ void get_next_elem(const char *format, int i, int *width, va_list valist, char *
 	else
 	{
 		current_len = get_substring_length(format + i);
+
 		for (j = 0; j < current_len; j++)
 		{
 			buffer_full(buffer, pos, n_printed);
 			buffer[*pos] = format[i + j];
-			pos++;
+			(*pos)++;
 		}
 	}
 	*width = current_len;
