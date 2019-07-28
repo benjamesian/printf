@@ -3,6 +3,9 @@
 /**
  * xtoa - convert an unsigned int to hexadecimal string (lowercase)
  * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
  *
  * Return: On success pointer to newly allocated string.
  * On error, NULL is returned.
