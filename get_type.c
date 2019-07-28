@@ -16,6 +16,11 @@ char *(*get_type(char *s))(va_list)
 		{"%", pcttoa},
 		{"R", storot13},
 		{"r", storev},
+		{"b", btoa},
+		{"u", ntoa},
+		{"o", otoa},
+		{"x", xtoa},
+		{"X", Xtoa},
 		{NULL, NULL}
 	};
 	int i = 0;
