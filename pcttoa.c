@@ -3,20 +3,20 @@
 /**
  * pcttoa - convert % to a string
  *
- * Return: On success pointer to newly allocated string.
- * On error, NULL is returned.
+ * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
+ *
+ * Return: Always 0
  */
-char *pcttoa(va_list valist)
+int pcttoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
 	(void) valist;
 
-	char *s = malloc(sizeof(char) * 2);
+	buffer_full(buffer, pos, n_printed);
+	buffer[*pos] = '%';
+	pos++;
 
-	if (!s)
-		return (NULL);
-
-	s[0] = '%';
-	s[1] = '\0';
-
-	return (s);
+	return (0);
 }
