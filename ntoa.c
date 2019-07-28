@@ -5,7 +5,7 @@
  * @n: The long long to convert
  * @s: The reversed string
  */
-void _ntoa_rev(long long n, char *s)
+void _ntoa_rev(long n, char *s)
 {
 	if (n == 0)
 	{
@@ -50,9 +50,9 @@ void rev_string(char *s)
  */
 int ntoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	int i, digits = 0, is_negative = 0;
-	long long n = va_arg(valist, long long);
-	long long copy = n;
+	int digits = 0, is_negative = 0;
+	long n = va_arg(valist, long);
+	long copy = n;
 	char *s;
 
 	if (n < 0)

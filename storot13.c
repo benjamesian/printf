@@ -33,5 +33,7 @@ int storot13(va_list valist, char *buffer, int *pos, int *n_printed)
 		c = s[i];
 	}
 
+	string_to_buffer(s, buffer, pos, n_printed);
+
 	return (0);
 }

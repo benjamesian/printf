@@ -13,9 +13,11 @@ int storev(va_list valist, char *buffer, int *pos, int *n_printed)
 {
 	char *_s = va_arg(valist, char *);
 	char *s = _strdup(_s);
-
 	char temp;
 	int i, len;
+
+	if (!s)
+		return (1);
 
 	for (len = 0; s[len] != '\0'; len++)
 		;
@@ -26,6 +28,8 @@ int storev(va_list valist, char *buffer, int *pos, int *n_printed)
 		s[i] = s[len - i - 1];
 		s[len - i - 1] = temp;
 	}
+
+	string_to_buffer(s, buffer, pos, n_printed);
 
 	return (0);
 }
