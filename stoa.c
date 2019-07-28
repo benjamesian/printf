@@ -2,23 +2,19 @@
 
 /**
  * stoa - Return the next string in va_list
- * @valist: The next string in the list
- *
- * Return: On success pointer to newly allocated string.
- * On error, NULL is returned.
+ * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
  */
-char *stoa(va_list valist)
+void stoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	int i;
 	char *string = va_arg(valist, char *);
-	char *s = malloc(sizeof(char) * (_strlen(string) + 1));
-
-	if (!s)
-		return (NULL);
 
 	for (i = 0; string[i] != '\0'; i++)
-		s[i] = string[i];
-	s[i] = '\0';
-
-	return (s);
+	{
+		buffer_full(buffer, pos, n_printed);
+		buffer[*pos] = string[i];
+		pos++;
+	}
 }

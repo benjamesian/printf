@@ -2,21 +2,16 @@
 
 /**
  * ctoa - convert a character to a string
- * @c: character to convert
- *
- * Return: On success pointer to newly allocated string.
- * On error, NULL is returned.
+ * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
  */
-char *ctoa(va_list valist)
+void ctoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
 	char c = va_arg(valist, int);
-	char *s = malloc(sizeof(char) * 2);
 
-	if (!s)
-		return (NULL);
-
-	s[0] = c;
-	s[1] = '\0';
-
-	return (s);
+	buffer_full(buffer, pos, n_printed);
+	buffer[*pos] = c;
+	*pos++;
 }
