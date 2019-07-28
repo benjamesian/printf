@@ -26,12 +26,16 @@ int get_substring_length(const char *s);
 int get_specifier_length(const char *s);
 int get_printable_length(const char *s);
 
-char *ctoa(va_list);
-char *stoa(va_list);
-char *ntoa(va_list);
-char *pcttoa(va_list);
+char *ctoa(va_list valist);
+char *stoa(va_list valist);
+char *ntoa(va_list valist);
+char *pcttoa(va_list valist);
 char *storot13(va_list valist);
 char *storev(va_list valist);
+char *btoa(va_list valist);
+char *otoa(va_list valist);
+char *xtoa(va_list valist);
+char *Xtoa(va_list valist);
 
 int _strlen(char *s);
 char *_strncpy(char *dest, const char *src, int n);
