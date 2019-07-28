@@ -6,7 +6,7 @@
  *
  * Return: pointer to newly allocated reversed string
  */
-char *storev(va_list valist)
+int storev(va_list valist, char *buffer, int *pos, int *n_printed)
 {
 	char *_s = va_arg(valist, char *);
 	char *s = _strdup(_s);
@@ -24,5 +24,5 @@ char *storev(va_list valist)
 		s[len - i - 1] = temp;
 	}
 
-	return (s);
+	return (0);
 }

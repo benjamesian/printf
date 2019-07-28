@@ -6,7 +6,7 @@
  *
  * Return: Pointer to the beginning of s
  */
-char *storot13(va_list valist)
+int storot13(va_list valist, char *buffer, int *pos, int *n_printed)
 {
 	char w, c;
 	char *s, *dest;
@@ -15,7 +15,7 @@ char *storot13(va_list valist)
 	s = va_arg(valist, char *);
 	dest = malloc(sizeof(*dest) * (_strlen(s) + 1));
 	if (!dest)
-		return (NULL);
+		return (1);
 
 	c = *s;
 	i = 0;
@@ -30,5 +30,5 @@ char *storot13(va_list valist)
 		c = s[i];
 	}
 
-	return (dest);
+	return (0);
 }

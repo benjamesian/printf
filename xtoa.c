@@ -7,7 +7,7 @@
  * Return: On success pointer to newly allocated string.
  * On error, NULL is returned.
  */
-char *xtoa(va_list valist)
+int xtoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
 	int i, j, len;
 	char temp;
@@ -15,7 +15,7 @@ char *xtoa(va_list valist)
 	char *s = malloc(sizeof(char) * 33);
 
 	if (!s)
-		return (NULL);
+		return (1);
 
 	i = 0;
 	while (b > 0)
@@ -38,5 +38,5 @@ char *xtoa(va_list valist)
 	}
 	s[len] = '\0';
 
-	return (s);
+	return (0);
 }
