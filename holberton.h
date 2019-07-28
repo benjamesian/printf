@@ -5,6 +5,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#define BUFFER_SIZE 1024
+
 /**
  * struct spec - conversion specifiers and their associated functions
  *
