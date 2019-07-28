@@ -8,6 +8,8 @@
  */
 char *pcttoa(va_list valist)
 {
+	(void) valist;
+
 	char *s = malloc(sizeof(char) * 2);
 
 	if (!s)
