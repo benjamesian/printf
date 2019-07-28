@@ -36,5 +36,7 @@ int btoa(va_list valist, char *buffer, int *pos, int *n_printed)
 	}
 	s[len] = '\0';
 
+	string_to_buffer(s, buffer, pos, n_printed);
+
 	return (0);
 }
