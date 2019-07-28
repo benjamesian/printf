@@ -16,28 +16,31 @@
 typedef struct spec
 {
 	char *s;
-	char *(*f)(va_list);
+	int (*f)(va_list, char *, int *, int *);
 } spec_t;
 
 int _printf(const char *format, ...);
-char *(*get_type(char *))(va_list);
-int print(char *);
+int (*get_type(char *))(va_list, char *, int *, int *);
+int print(char *, size_t);
 
 int is_valid_specifier_char(char c);
 int get_substring_length(const char *s);
 int get_specifier_length(const char *s);
 int get_printable_length(const char *s);
 
-void ctoa(va_list valist, char *buffer, int *pos, int *n_printed);
-void stoa(va_list valist, char *buffer, int *pos, int *n_printed);
-void ntoa(va_list valist, char *buffer, int *pos, int *n_printed);
-void pcttoa(va_list valist, char *buffer, int *pos, int *n_printed);
-void storot13(va_list valist, char *buffer, int *pos, int *n_printed);
-void storev(va_list valist, char *buffer, int *pos, int *n_printed);
-void btoa(va_list valist, char *buffer, int *pos, int *n_printed);
-void otoa(va_list valist, char *buffer, int *pos, int *n_printed);
-void xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
-void Xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int ctoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int stoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int ntoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int pcttoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int storot13(va_list valist, char *buffer, int *pos, int *n_printed);
+int storev(va_list valist, char *buffer, int *pos, int *n_printed);
+int btoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int otoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int Xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
+
+void buffer_full(char *buffer, int *pos, int *n_printed);
+void string_to_buffer(char *s, char *buffer, int *pos, int *n_printed);
 
 int _strlen(char *s);
 char *_strncpy(char *dest, const char *src, int n);
