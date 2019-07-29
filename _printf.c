@@ -1,4 +1,5 @@
 #include "holberton.h"
+
 /**
  * contains - check if a string contains a character
  * @s: string
@@ -33,10 +34,7 @@ int validate_spec(char *spec)
 
 	if (!spec || !spec[0])
 		return (0);
-/*
- *	while (spec[i] && contains(flags, spec[i]))
- *		i++;
- */
+
 	return (spec[i] && contains(specifiers, spec[i]));
 }
 
@@ -72,7 +70,8 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 			if (format[i + 1])
 			{
 				buffer_full(buff, pos, n_printed);
-				buff[(*pos)++] = '%'; }
+				buff[(*pos)++] = '%';
+			}
 			else
 				*n_printed = -1;
 			*width = 1;
@@ -81,7 +80,8 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 		if (get_type(spec)(valist, buff, pos, n_printed))
 		{
 			free(spec);
-			return (1); }
+			return (1);
+		}
 		free(spec);
 	}
 	else
