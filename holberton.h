@@ -14,18 +14,19 @@
  */
 typedef struct spec
 {
-	char *s;
+	char s;
 	int (*f)(va_list, char *, int *, int *);
 } spec_t;
 
 int _printf(const char *format, ...);
-int (*get_type(char *))(va_list, char *, int *, int *);
+int (*get_type(char))(va_list, char *, int *, int *);
 int print(char *, size_t);
 
-int is_valid_specifier_char(char c);
 int get_substring_length(const char *s);
 int get_specifier_length(const char *s);
 int get_printable_length(const char *s);
+int contains(char *s, char c);
+char validate_spec(char *spec);
 
 int ctoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int stoa(va_list valist, char *buffer, int *pos, int *n_printed);

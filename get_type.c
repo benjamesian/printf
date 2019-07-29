@@ -6,30 +6,30 @@
  *
  * Return: Pointer to function to convert to string
  */
-int (*get_type(char *s))(va_list, char *, int *, int *)
+int (*get_type(char s))(va_list, char *, int *, int *)
 {
 	spec_t specs[] = {
-		{"c", ctoa},
-		{"d", itoa},
-		{"i", itoa},
-		{"s", stoa},
-		{"%", pcttoa},
-		{"R", storot13},
-		{"r", storev},
-		{"b", btoa},
-		{"u", utoa},
-		{"o", otoa},
-		{"x", xtoa},
-		{"X", Xtoa},
-		{"S", Stoa},
-		{"p", ptoa},
-		{NULL, NULL}
+		{'c', ctoa},
+		{'d', itoa},
+		{'i', itoa},
+		{'s', stoa},
+		{'%', pcttoa},
+		{'R', storot13},
+		{'r', storev},
+		{'b', btoa},
+		{'u', utoa},
+		{'o', otoa},
+		{'x', xtoa},
+		{'X', Xtoa},
+		{'S', Stoa},
+		{'p', ptoa},
+		{'\0', NULL}
 	};
 	int i = 0;
 
 	while (specs[i].s)
 	{
-		if (specs[i].s[0] == s[0] && s[1] == '\0')
+		if (specs[i].s == s)
 			return (specs[i].f);
 		i++;
 	}

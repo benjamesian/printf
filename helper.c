@@ -1,14 +1,48 @@
 #include "holberton.h"
 
 /**
- * is_valid_specifier_char - check if a character is a valid specifier char
- * @c: character to check
+ * validate_spec - check if a specifier is valid for printf
+ * @spec: specifier
  *
- * Return: 1 if valid, 0 otherwise
+ * Return: 1 if specifier is valid, else 0
  */
-int is_valid_specifier_char(char c)
+char validate_spec(char *spec)
 {
-	return (c == 'd' || c == 'i' || c == 'c' || c == 's' || c == '%');
+	int i;
+	char *specifiers = "cs%dibuoxXSprR";
+
+	if (!spec || !spec[0])
+		return ('\0');
+
+	for (i = 0; spec[i]; i++)
+		;
+	i--;
+
+	if (!contains(specifiers, spec[i]))
+		return ('\0');
+
+	return (spec[i]);
+}
+
+/**
+ * contains - check if a string contains a character
+ * @s: string
+ * @c: character
+ *
+ * Return: 1 if character found in string, else 0
+ */
+int contains(char *s, char c)
+{
+	int i;
+
+	if (!s)
+		return (0);
+
+	for (i = 0; s[i]; i++)
+		if (s[i] == c)
+			return (1);
+
+	return (s[i] == c);
 }
 
 /**
@@ -36,8 +70,19 @@ int get_substring_length(const char *s)
  */
 int get_specifier_length(const char *s)
 {
-	(void) s;
-	return (2);
+	int i;
+	char *specs = "cs%dibuoxXSprR";
+
+	if (!s)
+		return (0);
+
+	for (i = 1; s[i] == ' '; i++)
+		;
+
+	if (!contains(specs, s[i]))
+		return (0);
+
+	return (i + 1);
 }
 
 /**

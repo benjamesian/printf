@@ -1,48 +1,9 @@
 #include "holberton.h"
 
 /**
- * contains - check if a string contains a character
- * @s: string
- * @c: character
- *
- * Return: 1 if character found in string, else 0
- */
-int contains(char *s, char c)
-{
-	int i;
-
-	if (!s)
-		return (0);
-
-	for (i = 0; s[i]; i++)
-		if (s[i] == c)
-			return (1);
-
-	return (s[i] == c);
-}
-
-/**
- * validate_spec - check if a specifier is valid for printf
- * @spec: specifier
- *
- * Return: 1 if specifier is valid, else 0
- */
-int validate_spec(char *spec)
-{
-	int i = 0;
-	char *specifiers = "cs%dibuoxXSprR";
-
-	if (!spec || !spec[0])
-		return (0);
-
-	return (spec[i] && contains(specifiers, spec[i]));
-}
-
-/**
- * get_next_elem - read the specifier or string starting at position i
- * @format: format string containing strings and specifiers
- * @i: current position in format string
- * @width: width of element just read in format string
+ * get_elem - read the specifier or string starting at position i
+ * @fmt: format string containing strings and specifiers
+ * @_i: current position in format string
  * @valist: list with next argument
  * @buff: character buffer for printing
  * @pos: position in the buffer
@@ -50,67 +11,75 @@ int validate_spec(char *spec)
  *
  * Return: 0 on success, else 1
  */
-int get_next_elem(const char *format, int i, int *width, va_list valist,
-		  char *buff, int *pos, int *n_printed)
+int get_elem(const char *fmt, int *_i, va_list valist, char *buff, int *pos, int *n_printed)
 {
-	int j, current_len, q;
+	int j, current_len, q, i;
 	char *spec;
+	char sp;
 
-	if (format[i] == '%')
+	i = *_i;
+
+	if (fmt[i] == '%')
 	{
-		current_len = get_specifier_length(format + i);
+		current_len = get_specifier_length(fmt + i);
+
 		spec = malloc(sizeof(*spec) * current_len);
 		if (!spec)
 			return (1);
-		_strncpy(spec, format + i + 1, current_len - 1);
+		_strncpy(spec, fmt + i + 1, current_len - 1);
 		spec[current_len - 1] = '\0';
-		if (!validate_spec(spec))
+
+		sp = validate_spec(spec);
+
+		if (!sp)
 		{
 			free(spec);
-			if (format[i + 1])
+			if (fmt[i + 1])
 			{
 				q = 0;
-				for (j = 1; format[i + j]; j++)
+				for (j = 1; fmt[i + j]; j++)
 				{
-					if (format[i + j] != ' ')
+					if (fmt[i + j] != ' ')
 					{
 						q = 1;
 						break;
 					}
 				}
+
 				if (q == 0)
-				{
+				{/* % > spaces > \0 */
 					*n_printed = -1;
-					*width = 2;
+					*_i += 2;
 					return (0);
 				}
-				else if (format[i + 1] == ' ')
+				else if (fmt[i + 1] == ' ')
 				{
 					buffer_full(buff, pos, n_printed);
 					buff[(*pos)++] = '%';
 					buffer_full(buff, pos, n_printed);
-					if (format[i + j] != '%')
+					if (fmt[i + j] != '%')
 						buff[(*pos)++] = ' ';
-					*width = j + (format[i + j] == '%');
+					*_i += j + (fmt[i + j] == '%');
 					return (0);
 				}
 				buffer_full(buff, pos, n_printed);
 				buff[(*pos)++] = '%';
-				if (format[i + 1] == '%' && !format[i + 2])
+
+				if (fmt[i + 1] == '%' && !fmt[i + 2])
 				{
 					buffer_full(buff, pos, n_printed);
 					buff[(*pos)++] = '%';
 					*n_printed = -1;
-					*width = 2;
+					*_i += 2;
 					return (0);
 				}
 			}
 			else
 				*n_printed = -1;
-			*width = 1;
+			*_i += 1;
 			return (0);
 		}
-		if (get_type(spec)(valist, buff, pos, n_printed))
+		if (get_type(sp)(valist, buff, pos, n_printed))
 		{
 			free(spec);
 			return (1);
@@ -119,14 +88,14 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 	}
 	else
 	{
-		current_len = get_substring_length(format + i);
+		current_len = get_substring_length(fmt + i);
 		for (j = 0; j < current_len; j++)
 		{
 			buffer_full(buff, pos, n_printed);
-			buff[(*pos)++] = format[i + j];
+			buff[(*pos)++] = fmt[i + j];
 		}
 	}
-	*width = current_len;
+	*_i += current_len;
 	return (0);
 }
 
@@ -139,7 +108,7 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
  */
 int _printf(const char *format, ...)
 {
-	int i, cur_len, pos = 0, n_printed = 0, chars_to_print, get_ok;
+	int i, pos = 0, n_printed = 0, chars_to_print, get_ok;
 	char buffer[BUFFER_SIZE];
 	va_list valist;
 
@@ -153,11 +122,9 @@ int _printf(const char *format, ...)
 	va_start(valist, format);
 	while (format[i] != '\0')
 	{
-		get_ok = get_next_elem(format, i, &cur_len, valist,
-				       buffer, &pos, &n_printed);
+		get_ok = get_elem(format, &i, valist, buffer, &pos, &n_printed);
 		if (get_ok == 1)
 			return (-1);
-		i += cur_len;
 	}
 	va_end(valist);
 
