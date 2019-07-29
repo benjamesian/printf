@@ -12,8 +12,7 @@
  */
 int xtoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	int i, j, len;
-	char temp;
+	int i, len;
 	unsigned int b = va_arg(valist, unsigned int);
 	char *s = malloc(sizeof(char) * 33);
 
@@ -33,12 +32,7 @@ int xtoa(va_list valist, char *buffer, int *pos, int *n_printed)
 	}
 
 	len = i;
-	for (j = i - 1; j >= len / 2; j--)
-	{
-		temp = s[j];
-		s[j] = s[len - j - 1];
-		s[len - j - 1] = temp;
-	}
+	rev_string(s);
 	s[len] = '\0';
 
 	string_to_buffer(s, buffer, pos, n_printed);

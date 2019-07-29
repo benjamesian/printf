@@ -38,6 +38,7 @@ int btoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int otoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int Xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int Stoa(va_list valist, char *buffer, int *pos, int *n_printed);
 
 int ntoa(long n, char *buffer, int *pos, int *n_printed);
 
@@ -47,5 +48,6 @@ void string_to_buffer(char *s, char *buffer, int *pos, int *n_printed);
 int _strlen(char *s);
 char *_strncpy(char *dest, const char *src, int n);
 char *_strdup(char *str);
+void rev_string(char *s);
 
 #endif

@@ -1,7 +1,7 @@
 #include "holberton.h"
 
 /**
- * _ntoa_rev - Convert a long long to a reversed string
+ * _ntoa_rev - Convert a long to a reversed string
  * @n: The long long to convert
  * @s: The reversed string
  */
@@ -15,28 +15,6 @@ void _ntoa_rev(long n, char *s)
 
 	*s = (n % 10) + '0';
 	_ntoa_rev(n / 10, ++s);
-}
-
-/**
- * rev_string - Reverse a string
- * @s: The string to reverse
- */
-void rev_string(char *s)
-{
-	int i, length;
-	char tmp;
-
-	length = 0;
-	for (i = 0; s[i] != '\0'; i++)
-		length++;
-
-	for (i = 0; i < length; i++)
-	{
-		tmp = s[i];
-		s[i] = s[length - 1];
-		s[length - 1] = tmp;
-		length--;
-	}
 }
 
 /**
