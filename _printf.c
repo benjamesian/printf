@@ -1,5 +1,12 @@
 #include "holberton.h"
 
+/**
+ * contains - check if a string contains a character
+ * @s: string
+ * @c: character
+ *
+ * Return: 1 if character found in string, else 0
+ */
 int contains(char *s, char c)
 {
 	int i;
@@ -14,12 +21,12 @@ int contains(char *s, char c)
 	return (s[i] == c);
 }
 
-typedef struct spec_flags
-{
-	char c;
-	char *flags;
-} sf_t;
-
+/**
+ * validate_spec - check if a specifier is valid for printf
+ * @spec: specifier
+ *
+ * Return: 1 if specifier is valid, else 0
+ */
 int validate_spec(char *spec)
 {
 	int i = 0;
@@ -40,7 +47,7 @@ int validate_spec(char *spec)
  * @i: current position in format string
  * @width: width of element just read in format string
  * @valist: list with next argument
- * @buffer: character buffer for printing
+ * @buff: character buffer for printing
  * @pos: position in the buffer
  * @n_printed: number of printable characters
  */
@@ -74,13 +81,11 @@ void get_next_elem(const char *format, int i, int *width, va_list valist,
 			free(spec);
 			exit(100);
 		}
-
 		free(spec);
 	}
 	else
 	{
 		current_len = get_substring_length(format + i);
-
 		for (j = 0; j < current_len; j++)
 		{
 			buffer_full(buff, pos, n_printed);
