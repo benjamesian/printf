@@ -76,8 +76,9 @@ int get_specifier_length(const char *s)
 	if (!s)
 		return (0);
 
-	for (i = 1; s[i] == ' '; i++)
-		;
+	i = 1;
+	while (s[i] && !contains(specs, s[i]))
+		i++;
 
 	if (!contains(specs, s[i]))
 		return (0);

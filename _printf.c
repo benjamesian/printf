@@ -1,100 +1,93 @@
 #include "holberton.h"
 
 /**
- * get_elem - read the specifier or string starting at position i
- * @fmt: format string containing strings and specifiers
- * @_i: current position in format string
- * @valist: list with next argument
- * @buff: character buffer for printing
- * @pos: position in the buffer
- * @n_printed: number of printable characters
+ * get_sp - get specifier
+ * @fmt: format string
+ * @i: current position in fmt
+ * @current_len: length of specifier
  *
- * Return: 0 on success, else 1
+ * Return: specifier
  */
-int get_elem(const char *fmt, int *_i, va_list valist, char *buff, int *pos, int *n_printed)
+char get_sp(const char *fmt, int i, int *current_len)
 {
-	int j, current_len, q, i;
 	char *spec;
 	char sp;
 
-	i = *_i;
+	*current_len = get_specifier_length(fmt + i);
+	spec = malloc(sizeof(*spec) * (*current_len));
+	if (!spec)
+		return (-1);
+	_strncpy(spec, fmt + i + 1, *current_len - 1);
+	spec[*current_len - 1] = '\0';
+	sp = validate_spec(spec);
+	free(spec);
+	return (sp);
+}
+
+void get_sub(const char *fmt, int i, int *current_len,
+	     char *buf, int *pos, int *n_p)
+{
+	int j;
+
+	*current_len = get_substring_length(fmt + i);
+	for (j = 0; j < *current_len; j++)
+	{
+		buffer_full(buf, pos, n_p);
+		buf[(*pos)++] = fmt[i + j];
+	}
+}
+
+/**
+ * get_el - read the specifier or string starting at position i
+ * @fmt: format string containing strings and specifiers
+ * @_i: current position in format string
+ * @vl: list with next argument
+ * @buf: character buffer for printing
+ * @pos: position in the buffer
+ * @n_p: number of printable characters
+ *
+ * Return: 0 on success, else 1
+ */
+int get_el(const char *fmt, int *_i, va_list vl, char *buf, int *pos, int *n_p)
+{
+	int j = 1, current_len, q = 0, i = *_i;
+	char sp;
 
 	if (fmt[i] == '%')
 	{
-		current_len = get_specifier_length(fmt + i);
-
-		spec = malloc(sizeof(*spec) * current_len);
-		if (!spec)
+		sp = get_sp(fmt, i, &current_len);
+		if (sp == -1)
 			return (1);
-		_strncpy(spec, fmt + i + 1, current_len - 1);
-		spec[current_len - 1] = '\0';
-
-		sp = validate_spec(spec);
-
 		if (!sp)
 		{
-			free(spec);
 			if (fmt[i + 1])
 			{
-				q = 0;
-				for (j = 1; fmt[i + j]; j++)
-				{
-					if (fmt[i + j] != ' ')
-					{
-						q = 1;
-						break;
-					}
-				}
-
-				if (q == 0)
+				while (fmt[i + j] == ' ')
+					j++;
+				if (!fmt[i + j])
 				{/* % > spaces > \0 */
-					*n_printed = -1;
-					*_i += 2;
+					*n_p = -1;
+					*_i += j;
 					return (0);
 				}
 				else if (fmt[i + 1] == ' ')
 				{
-					buffer_full(buff, pos, n_printed);
-					buff[(*pos)++] = '%';
-					buffer_full(buff, pos, n_printed);
+					string_to_buffer("%", buf, pos, n_p);
 					if (fmt[i + j] != '%')
-						buff[(*pos)++] = ' ';
+						string_to_buffer(" ", buf,
+								 pos, n_p);
 					*_i += j + (fmt[i + j] == '%');
 					return (0);
 				}
-				buffer_full(buff, pos, n_printed);
-				buff[(*pos)++] = '%';
-
-				if (fmt[i + 1] == '%' && !fmt[i + 2])
-				{
-					buffer_full(buff, pos, n_printed);
-					buff[(*pos)++] = '%';
-					*n_printed = -1;
-					*_i += 2;
-					return (0);
-				}
+				string_to_buffer("%", buf, pos, n_p);
 			}
-			else
-				*n_printed = -1;
-			*_i += 1;
-			return (0);
-		}
-		if (get_type(sp)(valist, buff, pos, n_printed))
-		{
-			free(spec);
-			return (1);
-		}
-		free(spec);
-	}
+			else /* "%" */
+				*n_p = -1;
+			current_len = 1; }
+		else if (get_type(sp)(vl, buf, pos, n_p))
+			return (1); }
 	else
-	{
-		current_len = get_substring_length(fmt + i);
-		for (j = 0; j < current_len; j++)
-		{
-			buffer_full(buff, pos, n_printed);
-			buff[(*pos)++] = fmt[i + j];
-		}
-	}
+		get_sub(fmt, i, &current_len, buf, pos, n_p);
 	*_i += current_len;
 	return (0);
 }
@@ -122,7 +115,7 @@ int _printf(const char *format, ...)
 	va_start(valist, format);
 	while (format[i] != '\0')
 	{
-		get_ok = get_elem(format, &i, valist, buffer, &pos, &n_printed);
+		get_ok = get_el(format, &i, valist, buffer, &pos, &n_printed);
 		if (get_ok == 1)
 			return (-1);
 	}
