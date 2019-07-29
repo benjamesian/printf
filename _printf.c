@@ -53,7 +53,7 @@ int validate_spec(char *spec)
 int get_next_elem(const char *format, int i, int *width, va_list valist,
 		  char *buff, int *pos, int *n_printed)
 {
-	int j, current_len, conversion_fail;
+	int j, current_len;
 	char *spec;
 
 	if (format[i] == '%')
