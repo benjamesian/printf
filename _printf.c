@@ -109,7 +109,7 @@ int _printf(const char *format, ...)
 	char buffer[BUFFER_SIZE];
 	va_list valist;
 
-	if (!format)
+	if (!format || !format[0])
 		return (-1);
 
 	for (i = 0; i < BUFFER_SIZE; i++)
