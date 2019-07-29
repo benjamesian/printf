@@ -1,5 +1,4 @@
 #include "holberton.h"
-
 /**
  * contains - check if a string contains a character
  * @s: string
@@ -50,8 +49,10 @@ int validate_spec(char *spec)
  * @buff: character buffer for printing
  * @pos: position in the buffer
  * @n_printed: number of printable characters
+ *
+ * Return: 0 on success, else 1
  */
-void get_next_elem(const char *format, int i, int *width, va_list valist,
+int get_next_elem(const char *format, int i, int *width, va_list valist,
 		   char *buff, int *pos, int *n_printed)
 {
 	int j, current_len, conversion_fail;
@@ -61,25 +62,22 @@ void get_next_elem(const char *format, int i, int *width, va_list valist,
 	if (format[i] == '%')
 	{
 		current_len = get_specifier_length(format + i);
-
 		spec = malloc(sizeof(*spec) * current_len);
 		if (!spec)
-			exit(98);
+			return (1);
 		_strncpy(spec, format + i + 1, current_len - 1);
 		spec[current_len - 1] = '\0';
-
 		if (!validate_spec(spec))
 		{
 			free(spec);
-			exit(99);
+			return (1);
 		}
-
 		type_to_buffer = get_type(spec);
 		conversion_fail = type_to_buffer(valist, buff, pos, n_printed);
 		if (conversion_fail)
 		{
 			free(spec);
-			exit(100);
+			return (1);
 		}
 		free(spec);
 	}
@@ -94,6 +92,7 @@ void get_next_elem(const char *format, int i, int *width, va_list valist,
 		}
 	}
 	*width = current_len;
+	return (0);
 }
 
 /**
@@ -105,7 +104,7 @@ void get_next_elem(const char *format, int i, int *width, va_list valist,
  */
 int _printf(const char *format, ...)
 {
-	int i, cur_len, pos = 0, n_printed = 0, chars_to_print;
+	int i, cur_len, pos = 0, n_printed = 0, chars_to_print, get_ok;
 	char buffer[BUFFER_SIZE];
 	va_list valist;
 
@@ -119,7 +118,10 @@ int _printf(const char *format, ...)
 	va_start(valist, format);
 	while (format[i] != '\0')
 	{
-		get_next_elem(format, i, &cur_len, valist, buffer, &pos, &n_printed);
+		get_ok = get_next_elem(format, i, &cur_len, valist,
+				       buffer, &pos, &n_printed);
+		if (get_ok == 1)
+			return (-1);
 		i += cur_len;
 	}
 	va_end(valist);
