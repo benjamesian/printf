@@ -71,6 +71,14 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 			{
 				buffer_full(buff, pos, n_printed);
 				buff[(*pos)++] = '%';
+				if (format[i + 1] == '%' && !format[i + 2])
+				{
+					buffer_full(buff, pos, n_printed);
+					buff[(*pos)++] = '%';
+					*n_printed = -1;
+					*width = 2;
+					return (0);
+				}
 			}
 			else
 				*n_printed = -1;
