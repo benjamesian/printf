@@ -50,7 +50,7 @@ void get_sub(const char *fmt, int i, int *current_len,
  */
 int get_el(const char *fmt, int *_i, va_list vl, char *buf, int *pos, int *n_p)
 {
-	int j = 1, current_len, q = 0, i = *_i;
+	int j = 1, current_len, i = *_i;
 	char sp;
 
 	if (fmt[i] == '%')
