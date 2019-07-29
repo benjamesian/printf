@@ -89,8 +89,9 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 					buffer_full(buff, pos, n_printed);
 					buff[(*pos)++] = '%';
 					buffer_full(buff, pos, n_printed);
-					buff[(*pos)++] = ' ';
-					*width = j;
+					if (format[i + j] != '%')
+						buff[(*pos)++] = ' ';
+					*width = j + (format[i + j] == '%');
 					return (0);
 				}
 				buffer_full(buff, pos, n_printed);
