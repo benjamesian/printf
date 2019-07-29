@@ -15,6 +15,12 @@ int Stoa(va_list valist, char *buffer, int *pos, int *n_printed)
 	char hex1, hex2;
 	int i;
 
+	if (!string)
+	{
+		string_to_buffer("(null)", buffer, pos, n_printed);
+		return (0);
+	}
+
 	for (i = 0; string[i] != '\0'; i++)
 	{
 		if (string[i] >= 32 && string[i] < 127)
@@ -25,12 +31,7 @@ int Stoa(va_list valist, char *buffer, int *pos, int *n_printed)
 		}
 		else
 		{
-			buffer_full(buffer, pos, n_printed);
-			buffer[*pos] = '\\';
-			(*pos)++;
-			buffer_full(buffer, pos, n_printed);
-			buffer[*pos] = 'x';
-			(*pos)++;
+			string_to_buffer("\\x", buffer, pos, n_printed);
 			hex1 = string[i] / 16;
 			hex2 = string[i] % 16;
 			if (hex1 < 10)

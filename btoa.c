@@ -17,7 +17,15 @@ int btoa(va_list valist, char *buffer, int *pos, int *n_printed)
 
 	if (!s)
 		return (1);
+	if (!b)
+	{
+		string_to_buffer("0", buffer, pos, n_printed);
+		free(s);
+		return (0);
+	}
 
+	for (i = 0; i < 33; i++)
+		s[i] = '\0';
 	i = 0;
 	while (b > 0)
 	{
