@@ -30,6 +30,7 @@ int storev(va_list valist, char *buffer, int *pos, int *n_printed)
 	}
 
 	string_to_buffer(s, buffer, pos, n_printed);
+	free(s);
 
 	return (0);
 }
