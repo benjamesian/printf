@@ -53,11 +53,10 @@ int validate_spec(char *spec)
  * Return: 0 on success, else 1
  */
 int get_next_elem(const char *format, int i, int *width, va_list valist,
-		   char *buff, int *pos, int *n_printed)
+		  char *buff, int *pos, int *n_printed)
 {
 	int j, current_len, conversion_fail;
 	char *spec;
-	int (*type_to_buffer)(va_list, char *, int *, int *);
 
 	if (format[i] == '%')
 	{
@@ -70,15 +69,19 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 		if (!validate_spec(spec))
 		{
 			free(spec);
-			return (1);
+			if (format[i + 1])
+			{
+				buffer_full(buff, pos, n_printed);
+				buff[(*pos)++] = '%'; }
+			else
+				*n_printed = -1;
+			*width = 1;
+			return (0);
 		}
-		type_to_buffer = get_type(spec);
-		conversion_fail = type_to_buffer(valist, buff, pos, n_printed);
-		if (conversion_fail)
+		if (get_type(spec)(valist, buff, pos, n_printed))
 		{
 			free(spec);
-			return (1);
-		}
+			return (1); }
 		free(spec);
 	}
 	else
@@ -87,8 +90,7 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 		for (j = 0; j < current_len; j++)
 		{
 			buffer_full(buff, pos, n_printed);
-			buff[*pos] = format[i + j];
-			(*pos)++;
+			buff[(*pos)++] = format[i + j];
 		}
 	}
 	*width = current_len;
@@ -126,12 +128,9 @@ int _printf(const char *format, ...)
 	}
 	va_end(valist);
 
-/*
- *	printf("ready to print\n");
- *	printf("%s %d\n", buffer, get_printable_length(buffer));
- */
 	chars_to_print = get_printable_length(buffer);
 	print(buffer, chars_to_print);
-	n_printed += chars_to_print;
+	if (n_printed >= 0)
+		n_printed += chars_to_print;
 	return (n_printed);
 }
