@@ -69,6 +69,12 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 			free(spec);
 			if (format[i + 1])
 			{
+				if (format[i + 1] == ' ' && !format[i + 2])
+				{
+					*n_printed = -1;
+					*width = 2;
+					return (0);
+				}
 				buffer_full(buff, pos, n_printed);
 				buff[(*pos)++] = '%';
 				if (format[i + 1] == '%' && !format[i + 2])
