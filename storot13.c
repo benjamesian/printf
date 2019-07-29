@@ -6,10 +6,11 @@
  * @buffer: character buffer for printing
  * @pos: position in the buffer
  * @n_printed: number of printable characters
+ * @spec: specifier flags
  *
  * Return: 0 on success else 1
  */
-int storot13(va_list valist, char *buffer, int *pos, int *n_printed)
+int rot13(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
 	char w, c;
 	char *s, *dest;

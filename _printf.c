@@ -8,19 +8,16 @@
  *
  * Return: specifier
  */
-char get_sp(const char *fmt, int i, int *current_len)
+char get_sp(const char *fmt, int i, int *current_len, char *spec)
 {
 	int j;
-	char spec[BUFFER_SIZE];
 	char sp;
 
 	*current_len = get_specifier_length(fmt + i);
-
-	for (j = 0; j < BUFFER_SIZE; j++)
-		spec[j] = '\0';
+	if (current_len > BUFFER_SIZE - 1)
+		return ('\0');
 
 	_strncpy(spec, fmt + i + 1, *current_len - 1);
-	spec[*current_len - 1] = '\0';
 	sp = validate_spec(spec);
 
 	return (sp);
@@ -52,12 +49,16 @@ void get_sub(const char *fmt, int i, int *current_len,
  */
 int get_el(const char *fmt, int *_i, va_list vl, char *buf, int *pos, int *n_p)
 {
-	int j = 1, current_len, i = *_i;
+	int j, current_len, i = *_i;
+	char spec[BUFFER_SIZE];
 	char sp;
 
+	for (j = 0; j < BUFFER_SIZE; j++)
+		spec[j] = '\0';
+	j = 1;
 	if (fmt[i] == '%')
 	{
-		sp = get_sp(fmt, i, &current_len);
+		sp = get_sp(fmt, i, &current_len, spec);
 		if (sp == -1)
 			return (1);
 		if (!sp)
@@ -86,7 +87,7 @@ int get_el(const char *fmt, int *_i, va_list vl, char *buf, int *pos, int *n_p)
 			else /* "%" */
 				*n_p = -1;
 			current_len = 1; }
-		else if (get_type(sp)(vl, buf, pos, n_p))
+		else if (get_type(sp)(vl, buf, pos, n_p, spec))
 			return (1); }
 	else
 		get_sub(fmt, i, &current_len, buf, pos, n_p);

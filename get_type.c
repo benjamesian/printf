@@ -6,7 +6,7 @@
  *
  * Return: Pointer to function to convert to string
  */
-int (*get_type(char s))(va_list, char *, int *, int *)
+int (*get_type(char s))(va_list, char *, int *, int *, char *)
 {
 	spec_t specs[] = {
 		{'c', ctoa},
@@ -14,7 +14,7 @@ int (*get_type(char s))(va_list, char *, int *, int *)
 		{'i', itoa},
 		{'s', stoa},
 		{'%', pcttoa},
-		{'R', storot13},
+		{'R', rot13},
 		{'r', storev},
 		{'b', btoa},
 		{'u', utoa},

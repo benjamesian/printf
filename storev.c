@@ -6,10 +6,11 @@
  * @buffer: character buffer for printing
  * @pos: position in the buffer
  * @n_printed: number of printable characters
+ * @spec: specifier flags
  *
  * Return: Always 0
  */
-int storev(va_list valist, char *buffer, int *pos, int *n_printed)
+int storev(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
 	char *_s = va_arg(valist, char *);
 	char *s = _strdup(_s);

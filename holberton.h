@@ -15,11 +15,11 @@
 typedef struct spec
 {
 	char s;
-	int (*f)(va_list, char *, int *, int *);
+	int (*f)(va_list, char *, int *, int *, char *);
 } spec_t;
 
 int _printf(const char *format, ...);
-int (*get_type(char))(va_list, char *, int *, int *);
+int (*get_type(char))(va_list, char *, int *, int *, char *);
 int print(char *, size_t);
 
 int get_substring_length(const char *s);
@@ -28,19 +28,19 @@ int get_printable_length(const char *s);
 int contains(char *s, char c);
 char validate_spec(char *spec);
 
-int ctoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int stoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int itoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int utoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int pcttoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int storot13(va_list valist, char *buffer, int *pos, int *n_printed);
-int storev(va_list valist, char *buffer, int *pos, int *n_printed);
-int btoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int otoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int Xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int Stoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int ptoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int ctoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int stoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int itoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int utoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int pcttoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int rot13(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int storev(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int btoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int otoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int xtoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int Xtoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int Stoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
+int ptoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec);
 
 int ntoa(long n, char *buffer, int *pos, int *n_printed);
 

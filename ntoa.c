@@ -23,10 +23,11 @@ void _ntoa_rev(long n, char *s)
  * @buffer: character buffer for printing
  * @pos: position in the buffer
  * @n_printed: number of printable characters
+ * @spec: specifier flags
  *
  * Return: 0 on success, 1 on allocation failure
  */
-int itoa(va_list valist, char *buffer, int *pos, int *n_printed)
+int itoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
 	int n = va_arg(valist, int);
 	unsigned int unsigned_n = n;
@@ -48,10 +49,11 @@ int itoa(va_list valist, char *buffer, int *pos, int *n_printed)
  * @buffer: character buffer for printing
  * @pos: position in the buffer
  * @n_printed: number of printable characters
+ * @spec: specifier flags
  *
  * Return: 0 on success, 1 on allocation failure
  */
-int utoa(va_list valist, char *buffer, int *pos, int *n_printed)
+int utoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
 	unsigned int n = va_arg(valist, unsigned int);
 
