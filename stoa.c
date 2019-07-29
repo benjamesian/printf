@@ -14,7 +14,8 @@ int stoa(va_list valist, char *buffer, int *pos, int *n_printed)
 	char *string = va_arg(valist, char *);
 
 	if (!string)
-		return (1);
+		string = "(null)";
+
 	string_to_buffer(string, buffer, pos, n_printed);
 
 	return (0);
