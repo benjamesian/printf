@@ -10,14 +10,14 @@ int (*get_type(char *s))(va_list, char *, int *, int *)
 {
 	spec_t specs[] = {
 		{"c", ctoa},
-		{"d", ntoa},
-		{"i", ntoa},
+		{"d", itoa},
+		{"i", itoa},
 		{"s", stoa},
 		{"%", pcttoa},
 		{"R", storot13},
 		{"r", storev},
 		{"b", btoa},
-		{"u", ntoa},
+		{"u", utoa},
 		{"o", otoa},
 		{"x", xtoa},
 		{"X", Xtoa},

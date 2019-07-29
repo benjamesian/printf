@@ -29,7 +29,8 @@ int get_printable_length(const char *s);
 
 int ctoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int stoa(va_list valist, char *buffer, int *pos, int *n_printed);
-int ntoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int itoa(va_list valist, char *buffer, int *pos, int *n_printed);
+int utoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int pcttoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int storot13(va_list valist, char *buffer, int *pos, int *n_printed);
 int storev(va_list valist, char *buffer, int *pos, int *n_printed);
@@ -37,6 +38,8 @@ int btoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int otoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
 int Xtoa(va_list valist, char *buffer, int *pos, int *n_printed);
+
+int ntoa(long n, char *buffer, int *pos, int *n_printed);
 
 void buffer_full(char *buffer, int *pos, int *n_printed);
 void string_to_buffer(char *s, char *buffer, int *pos, int *n_printed);

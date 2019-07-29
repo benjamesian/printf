@@ -40,7 +40,7 @@ void rev_string(char *s)
 }
 
 /**
- * ntoa - convert a long long to a string
+ * itoa - convert an integer to a string
  * @valist: list with next argument
  * @buffer: character buffer for printing
  * @pos: position in the buffer
@@ -48,15 +48,52 @@ void rev_string(char *s)
  *
  * Return: 0 on success, 1 on allocation failure
  */
-int ntoa(va_list valist, char *buffer, int *pos, int *n_printed)
+int itoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	int digits = 0, is_negative = 0;
-	long n = va_arg(valist, long);
-	long copy = n;
-	char *s;
+	int n = va_arg(valist, int);
+	unsigned int unsigned_n = n;
 
 	if (n < 0)
-		is_negative = 1;
+	{
+		unsigned_n = -n;
+		buffer_full(buffer, pos, n_printed);
+		buffer[*pos] = '-';
+		(*pos)++;
+	}
+
+	return (ntoa(unsigned_n, buffer, pos, n_printed));
+}
+
+/**
+ * utoa - convert a long to a string
+ * @valist: list with next argument
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
+ *
+ * Return: 0 on success, 1 on allocation failure
+ */
+int utoa(va_list valist, char *buffer, int *pos, int *n_printed)
+{
+	long n = va_arg(valist, long);
+
+	return (ntoa(n, buffer, pos, n_printed));
+}
+
+/**
+ * ntoa - convert a long to a string
+ * @n: number to convert
+ * @buffer: character buffer for printing
+ * @pos: position in the buffer
+ * @n_printed: number of printable characters
+ *
+ * Return: 0 on success, 1 on allocation failure
+ */
+int ntoa(long n, char *buffer, int *pos, int *n_printed)
+{
+	int digits = 0;
+	long copy = n;
+	char *s;
 
 	if (copy == 0)
 		digits = 1;
@@ -69,7 +106,7 @@ int ntoa(va_list valist, char *buffer, int *pos, int *n_printed)
 		}
 	}
 
-	s = malloc(sizeof(char) * (digits + is_negative + 1));
+	s = malloc(sizeof(char) * (digits + 1));
 
 	if (!s)
 		return (1);
