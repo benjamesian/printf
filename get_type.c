@@ -21,6 +21,7 @@ int (*get_type(char *s))(va_list, char *, int *, int *)
 		{"o", otoa},
 		{"x", xtoa},
 		{"X", Xtoa},
+		{"S", Stoa},
 		{NULL, NULL}
 	};
 	int i = 0;
