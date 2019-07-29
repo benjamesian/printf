@@ -29,6 +29,8 @@ int storot13(va_list valist, char *buffer, int *pos, int *n_printed)
 		w = (l * 'a') + (u * 'A');
 		if (w)
 			dest[i] = (((c - w) + 13) % 26) + w;
+		else
+			dest[i] = c;
 		i++;
 		c = s[i];
 	}
