@@ -19,10 +19,10 @@ int is_valid_specifier_char(char c)
  */
 int get_substring_length(const char *s)
 {
-	int len, is_escaped = 0;
+	int len;
 
-	for (len = 0; s[len] != '\0' && !(s[len] == '%' && !is_escaped); len++)
-		is_escaped = (s[len] == '\\' && !is_escaped);
+	for (len = 0; s[len] != '\0' && s[len] != '%'; len++)
+		;
 
 	return (len);
 }
@@ -48,14 +48,10 @@ int get_specifier_length(const char *s)
  */
 int get_printable_length(const char *s)
 {
-	int i, j, is_escaped = 0;
+	int i;
 
-	for (i = 0, j = 0; s[i] != '\0'; i++, j++)
-	{
-		is_escaped = (s[i] == '\\' && !is_escaped);
-		if (is_escaped)
-			j--;
-	}
+	for (i = 0; s[i] != '\0'; i++)
+		;
 
-	return (j);
+	return (i);
 }
