@@ -53,7 +53,7 @@ int validate_spec(char *spec)
 int get_next_elem(const char *format, int i, int *width, va_list valist,
 		  char *buff, int *pos, int *n_printed)
 {
-	int j, current_len;
+	int j, current_len, q;
 	char *spec;
 
 	if (format[i] == '%')
@@ -69,7 +69,16 @@ int get_next_elem(const char *format, int i, int *width, va_list valist,
 			free(spec);
 			if (format[i + 1])
 			{
-				if (format[i + 1] == ' ' && !format[i + 2])
+				q = 0;
+				for (j = 1; format[i + j]; j++)
+				{
+					if (format[i + j] != ' ')
+					{
+						q = 1;
+						break;
+					}
+				}
+				if (q == 0)
 				{
 					*n_printed = -1;
 					*width = 2;
