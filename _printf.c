@@ -1,5 +1,39 @@
 #include "holberton.h"
 
+int contains(char *s, char c)
+{
+	int i;
+
+	if (!s)
+		return (0);
+
+	for (i = 0; s[i]; i++)
+		if (s[i] == c)
+			return (1);
+
+	return (s[i] == c);
+}
+
+typedef struct spec_flags
+{
+	char c;
+	char *flags;
+} sf_t;
+
+int validate_spec(char *spec)
+{
+	int i = 0;
+	char *specifiers = "cs%dibuoxXSprR";
+
+	if (!spec || !spec[0])
+		return (0);
+/*
+ *	while (spec[i] && contains(flags, spec[i]))
+ *		i++;
+ */
+	return (spec[i] && contains(specifiers, spec[i]));
+}
+
 /**
  * get_next_elem - read the specifier or string starting at position i
  * @format: format string containing strings and specifiers
@@ -11,9 +45,9 @@
  * @n_printed: number of printable characters
  */
 void get_next_elem(const char *format, int i, int *width, va_list valist,
-		   char *buffer, int *pos, int *n_printed)
+		   char *buff, int *pos, int *n_printed)
 {
-	int j, current_len;
+	int j, current_len, conversion_fail;
 	char *spec;
 	int (*type_to_buffer)(va_list, char *, int *, int *);
 
@@ -27,8 +61,19 @@ void get_next_elem(const char *format, int i, int *width, va_list valist,
 		_strncpy(spec, format + i + 1, current_len - 1);
 		spec[current_len - 1] = '\0';
 
+		if (!validate_spec(spec))
+		{
+			free(spec);
+			exit(99);
+		}
+
 		type_to_buffer = get_type(spec);
-		type_to_buffer(valist, buffer, pos, n_printed);
+		conversion_fail = type_to_buffer(valist, buff, pos, n_printed);
+		if (conversion_fail)
+		{
+			free(spec);
+			exit(100);
+		}
 
 		free(spec);
 	}
@@ -38,8 +83,8 @@ void get_next_elem(const char *format, int i, int *width, va_list valist,
 
 		for (j = 0; j < current_len; j++)
 		{
-			buffer_full(buffer, pos, n_printed);
-			buffer[*pos] = format[i + j];
+			buffer_full(buff, pos, n_printed);
+			buff[*pos] = format[i + j];
 			(*pos)++;
 		}
 	}
