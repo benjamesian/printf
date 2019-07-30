@@ -23,6 +23,15 @@ char get_sp(const char *fmt, int i, int *current_len, char *spec)
 	return (sp);
 }
 
+/**
+ * get_sub - write substring into buffer
+ * @fmt: format string containing strings and specifiers
+ * @i: current position in format string
+ * @current_len: length of substring
+ * @buf: character buffer for printing
+ * @pos: position in the buffer
+ * @n_p: number of printable characters
+ */
 void get_sub(const char *fmt, int i, int *current_len,
 	     char *buf, int *pos, int *n_p)
 {
@@ -37,6 +46,62 @@ void get_sub(const char *fmt, int i, int *current_len,
 }
 
 /**
+ * get_fmt_string - handle specifier formatting
+ * @fmt: format string containing strings and specifiers
+ * @_i: current position in format string
+ * @vl: list with next argument
+ * @current_len: length of specifier format string
+ * @buf: character buffer for printing
+ * @pos: position in the buffer
+ * @n_p: number of printable characters
+ *
+ * Return: code indicating success (0 or 2), else 1
+ */
+int get_fmt_string(const char *fmt, int *_i, va_list vl, int *current_len,
+		    char *buf, int *pos, int *n_p)
+{
+	char spec[BUFFER_SIZE], sp;
+	int j, i = *_i;
+
+	for (j = 0; j < BUFFER_SIZE; j++)
+		spec[j] = '\0';
+
+	j = 1;
+	sp = get_sp(fmt, i, current_len, spec);
+	if (!sp)
+	{
+		if (fmt[i + 1])
+		{
+			while (fmt[i + j] == ' ')
+				j++;
+			/* % > spaces > \0 */
+			if (!fmt[i + j])
+			{
+				*n_p = -1;
+				*_i += j;
+				return (0);
+			}
+			else if (fmt[i + 1] == ' ')
+			{
+				string_to_buffer("%", buf, pos, n_p);
+				if (fmt[i + j] != '%')
+					string_to_buffer(" ", buf,
+							 pos, n_p);
+				*_i += j + (fmt[i + j] == '%');
+				return (0);
+			}
+			string_to_buffer("%", buf, pos, n_p);
+		}
+		/* "%" */
+		else
+			*n_p = -1;
+		*current_len = 1;
+	}
+	else if (get_type(sp)(vl, buf, pos, n_p, spec))
+		return (1);
+	return (2);
+}
+/**
  * get_el - read the specifier or string starting at position i
  * @fmt: format string containing strings and specifiers
  * @_i: current position in format string
@@ -49,42 +114,15 @@ void get_sub(const char *fmt, int i, int *current_len,
  */
 int get_el(const char *fmt, int *_i, va_list vl, char *buf, int *pos, int *n_p)
 {
-	int j, current_len, i = *_i;
-	char spec[BUFFER_SIZE], sp;
+	int current_len, i = *_i, fmt_code;
 
-	for (j = 0; j < BUFFER_SIZE; j++)
-		spec[j] = '\0';
-	j = 1;
 	if (fmt[i] == '%')
 	{
-		sp = get_sp(fmt, i, &current_len, spec);
-		if (sp == -1)
-			return (1);
-		if (!sp)
-		{
-			if (fmt[i + 1])
-			{
-				while (fmt[i + j] == ' ')
-					j++;
-				if (!fmt[i + j])
-				{/* % > spaces > \0 */
-					*n_p = -1;
-					*_i += j;
-					return (0); }
-				else if (fmt[i + 1] == ' ')
-				{
-					string_to_buffer("%", buf, pos, n_p);
-					if (fmt[i + j] != '%')
-						string_to_buffer(" ", buf,
-								 pos, n_p);
-					*_i += j + (fmt[i + j] == '%');
-					return (0); }
-				string_to_buffer("%", buf, pos, n_p); }
-			else /* "%" */
-				*n_p = -1;
-			current_len = 1; }
-		else if (get_type(sp)(vl, buf, pos, n_p, spec))
-			return (1); }
+		fmt_code = get_fmt_string(fmt, _i, vl, &current_len,
+					  buf, pos, n_p);
+		if (fmt_code != 2)
+			return (fmt_code);
+	}
 	else
 		get_sub(fmt, i, &current_len, buf, pos, n_p);
 	*_i += current_len;
