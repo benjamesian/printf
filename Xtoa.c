@@ -14,7 +14,7 @@
 int Xtoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
 	int i;
-	unsigned int b = va_arg(valist, unsigned int);
+	unsigned long int b = va_arg(valist, unsigned long int);
 	char s[33];
 
 	if (!b)
@@ -22,6 +22,11 @@ int Xtoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 		string_to_buffer("0", buffer, pos, n_printed);
 		return (0);
 	}
+
+	if (contains(spec, 'h'))
+		b = (unsigned short) b;
+	if (!contains(spec, 'l'))
+		b = (unsigned int) b;
 
 	if (contains(spec, '#'))
 		string_to_buffer("0x", buffer, pos, n_printed);

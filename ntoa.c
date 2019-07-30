@@ -29,8 +29,15 @@ void _ntoa_rev(long n, char *s)
  */
 int itoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
-	int n = va_arg(valist, int);
-	unsigned int unsigned_n = n;
+	long int n = va_arg(valist, long);
+	unsigned long int unsigned_n;
+
+	if (contains(spec, 'h'))
+		n = (short) n;
+	if (!contains(spec, 'l'))
+		n = (int) n;
+
+	unsigned_n = n;
 
 	if (n < 0)
 	{
@@ -62,9 +69,14 @@ int itoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
  */
 int utoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
-	unsigned int n = va_arg(valist, unsigned int);
+	unsigned long int n = va_arg(valist, unsigned long int);
 
 	(void) spec;
+
+	if (contains(spec, 'h'))
+		n = (unsigned short) n;
+	if (!contains(spec, 'l'))
+		n = (unsigned int) n;
 
 	return (ntoa(n, buffer, pos, n_printed));
 }
