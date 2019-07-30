@@ -69,30 +69,15 @@ int utoa(va_list valist, char *buffer, int *pos, int *n_printed)
  */
 int ntoa(long n, char *buffer, int *pos, int *n_printed)
 {
-	int digits = 0;
-	long copy = n;
-	char *s;
+	int i;
+	char s[12];
 
-	if (copy == 0)
-		digits = 1;
-	else
-	{
-		while (copy)
-		{
-			copy /= 10;
-			digits++;
-		}
-	}
-
-	s = malloc(sizeof(char) * (digits + 1));
-
-	if (!s)
-		return (1);
+	for (i = 0; i < 12; i++)
+		s[i] = '\0';
 
 	if (n == 0)
 	{
 		s[0] = '0';
-		s[1] = '\0';
 	}
 	else
 	{
@@ -101,7 +86,6 @@ int ntoa(long n, char *buffer, int *pos, int *n_printed)
 	}
 
 	string_to_buffer(s, buffer, pos, n_printed);
-	free(s);
 
 	return (0);
 }
