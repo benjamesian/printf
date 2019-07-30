@@ -11,17 +11,13 @@
  */
 int otoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	int i, len;
+	int i;
 	unsigned int b = va_arg(valist, unsigned int);
-	char *s = malloc(sizeof(char) * 12);
-
-	if (!s)
-		return (1);
+	char s[12];
 
 	if (!b)
 	{
 		string_to_buffer("0", buffer, pos, n_printed);
-		free(s);
 		return (0);
 	}
 
@@ -35,11 +31,9 @@ int otoa(va_list valist, char *buffer, int *pos, int *n_printed)
 		i++;
 	}
 
-	len = i;
 	rev_string(s);
-	s[len] = '\0';
+	s[i] = '\0';
 
 	string_to_buffer(s, buffer, pos, n_printed);
-	free(s);
 	return (0);
 }
