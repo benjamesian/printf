@@ -53,7 +53,7 @@ int itoa(va_list valist, char *buffer, int *pos, int *n_printed)
  */
 int utoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	long n = va_arg(valist, long);
+	unsigned int n = va_arg(valist, unsigned int);
 
 	return (ntoa(n, buffer, pos, n_printed));
 }
