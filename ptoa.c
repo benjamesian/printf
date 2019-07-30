@@ -12,20 +12,20 @@
  */
 int ptoa(va_list valist, char *buffer, int *pos, int *n_printed)
 {
-	int i = 0;
+	int i;
 	unsigned long b = va_arg(valist, unsigned long);
-	char *s = malloc(sizeof(char) * 33);
-
-	if (!s)
-		return (1);
+	char s[33];
 
 	if (!b)
 	{
 		string_to_buffer("(nil)", buffer, pos, n_printed);
-		free(s);
 		return (0);
 	}
 
+	for (i = 0; i < 33; i++)
+		s[i] = '\0';
+
+	i = 0;
 	while (b > 0)
 	{
 		s[i] = (b % 16);
@@ -42,6 +42,6 @@ int ptoa(va_list valist, char *buffer, int *pos, int *n_printed)
 
 	string_to_buffer("0x", buffer, pos, n_printed);
 	string_to_buffer(s, buffer, pos, n_printed);
-	free(s);
+
 	return (0);
 }
