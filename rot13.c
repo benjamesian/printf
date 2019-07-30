@@ -12,10 +12,11 @@
  */
 int rot13(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
-	(void) spec;
 	char w, c;
 	char *s, *dest;
 	int l, u, i;
+
+	(void) spec;
 
 	s = va_arg(valist, char *);
 	dest = malloc(sizeof(*dest) * (_strlen(s) + 1));

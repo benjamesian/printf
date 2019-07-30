@@ -11,7 +11,6 @@
  */
 char get_sp(const char *fmt, int i, int *current_len, char *spec)
 {
-	int j;
 	char sp;
 
 	*current_len = get_specifier_length(fmt + i);

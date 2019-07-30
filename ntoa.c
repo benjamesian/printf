@@ -62,8 +62,9 @@ int itoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
  */
 int utoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
-	(void) spec;
 	unsigned int n = va_arg(valist, unsigned int);
+
+	(void) spec;
 
 	return (ntoa(n, buffer, pos, n_printed));
 }

@@ -11,11 +11,11 @@
  */
 int Stoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
-	(void) spec;
 	char *string = va_arg(valist, char *);
 	char hex1, hex2;
 	int i;
 
+	(void) spec;
 	if (!string)
 	{
 		string_to_buffer("(null)", buffer, pos, n_printed);
