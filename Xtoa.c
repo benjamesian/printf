@@ -29,7 +29,7 @@ int Xtoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 		b = (unsigned int) b;
 
 	if (contains(spec, '#'))
-		string_to_buffer("0x", buffer, pos, n_printed);
+		string_to_buffer("0X", buffer, pos, n_printed);
 
 	for (i = 0; i < 33; i++)
 		s[i] = '\0';
