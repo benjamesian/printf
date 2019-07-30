@@ -22,6 +22,9 @@ int otoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 		return (0);
 	}
 
+	if (contains(spec, '#'))
+		string_to_buffer("0", buffer, pos, n_printed);
+
 	for (i = 0; i < 12; i++)
 		s[i] = '\0';
 	i = 0;
