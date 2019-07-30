@@ -14,12 +14,12 @@ char get_sp(const char *fmt, int i, int *current_len, char *spec)
 	char sp;
 
 	*current_len = get_specifier_length(fmt + i);
-	if (current_len > BUFFER_SIZE - 1)
+	if (*current_len > BUFFER_SIZE - 1)
 		return ('\0');
 
 	_strncpy(spec, fmt + i + 1, *current_len - 1);
 	sp = validate_spec(spec);
-
+	spec[*current_len - 2] = '\0';
 	return (sp);
 }
 
