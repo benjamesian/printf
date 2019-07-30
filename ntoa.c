@@ -39,6 +39,8 @@ int itoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 		buffer[*pos] = '-';
 		(*pos)++;
 	}
+	else if (contains(spec, '+'))
+		string_to_buffer("+", buffer, pos, n_printed);
 
 	return (ntoa(unsigned_n, buffer, pos, n_printed));
 }
