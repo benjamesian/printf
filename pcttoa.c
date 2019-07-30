@@ -14,6 +14,7 @@
 int pcttoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
 	(void) valist;
+	(void) spec;
 
 	buffer_full(buffer, pos, n_printed);
 	buffer[*pos] = '%';

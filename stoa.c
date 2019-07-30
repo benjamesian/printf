@@ -12,6 +12,7 @@
  */
 int stoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
+	(void) spec;
 	char *string = va_arg(valist, char *);
 
 	if (!string)

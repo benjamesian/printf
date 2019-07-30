@@ -12,6 +12,7 @@
  */
 int storev(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
+	(void) spec;
 	char *_s = va_arg(valist, char *);
 	char *s = _strdup(_s);
 	char temp;

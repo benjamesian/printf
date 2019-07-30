@@ -11,6 +11,7 @@
  */
 int Stoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
+	(void) spec;
 	char *string = va_arg(valist, char *);
 	char hex1, hex2;
 	int i;
@@ -20,7 +21,6 @@ int Stoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 		string_to_buffer("(null)", buffer, pos, n_printed);
 		return (0);
 	}
-
 	for (i = 0; string[i] != '\0'; i++)
 	{
 		if (string[i] >= 32 && string[i] < 127)
