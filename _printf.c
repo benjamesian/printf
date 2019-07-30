@@ -5,6 +5,7 @@
  * @fmt: format string
  * @i: current position in fmt
  * @current_len: length of specifier
+ * @spec: specifier flags
  *
  * Return: specifier
  */
@@ -50,8 +51,7 @@ void get_sub(const char *fmt, int i, int *current_len,
 int get_el(const char *fmt, int *_i, va_list vl, char *buf, int *pos, int *n_p)
 {
 	int j, current_len, i = *_i;
-	char spec[BUFFER_SIZE];
-	char sp;
+	char spec[BUFFER_SIZE], sp;
 
 	for (j = 0; j < BUFFER_SIZE; j++)
 		spec[j] = '\0';
@@ -71,8 +71,7 @@ int get_el(const char *fmt, int *_i, va_list vl, char *buf, int *pos, int *n_p)
 				{/* % > spaces > \0 */
 					*n_p = -1;
 					*_i += j;
-					return (0);
-				}
+					return (0); }
 				else if (fmt[i + 1] == ' ')
 				{
 					string_to_buffer("%", buf, pos, n_p);
@@ -80,10 +79,8 @@ int get_el(const char *fmt, int *_i, va_list vl, char *buf, int *pos, int *n_p)
 						string_to_buffer(" ", buf,
 								 pos, n_p);
 					*_i += j + (fmt[i + j] == '%');
-					return (0);
-				}
-				string_to_buffer("%", buf, pos, n_p);
-			}
+					return (0); }
+				string_to_buffer("%", buf, pos, n_p); }
 			else /* "%" */
 				*n_p = -1;
 			current_len = 1; }
