@@ -6,11 +6,12 @@
  * @buffer: character buffer for printing
  * @pos: position in the buffer
  * @n_printed: number of printable characters
+ * @spec: specificer flags
  *
  * Return: On success pointer to newly allocated string.
  * On error, NULL is returned.
  */
-int xtoa(va_list valist, char *buffer, int *pos, int *n_printed)
+int xtoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
 	int i;
 	unsigned int b = va_arg(valist, unsigned int);
