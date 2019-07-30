@@ -14,6 +14,8 @@ int ctoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
 	char c = va_arg(valist, int);
 
+	(void) spec;
+
 	if (c == '\0')
 		c = ' ';
 	buffer_full(buffer, pos, n_printed);
