@@ -16,6 +16,8 @@ int btoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 	unsigned int b = va_arg(valist, unsigned int);
 	char s[33];
 
+	(void) spec;
+
 	if (!b)
 	{
 		string_to_buffer("0", buffer, pos, n_printed);
