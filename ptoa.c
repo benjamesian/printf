@@ -25,6 +25,8 @@ int ptoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 
 	if (contains(spec, '+'))
 		string_to_buffer("+", buffer, pos, n_printed);
+	else if (contains(spec, ' '))
+		string_to_buffer(" ", buffer, pos, n_printed);
 
 	for (i = 0; i < 33; i++)
 		s[i] = '\0';
