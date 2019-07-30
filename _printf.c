@@ -10,17 +10,19 @@
  */
 char get_sp(const char *fmt, int i, int *current_len)
 {
-	char *spec;
+	int j;
+	char spec[BUFFER_SIZE];
 	char sp;
 
 	*current_len = get_specifier_length(fmt + i);
-	spec = malloc(sizeof(*spec) * (*current_len));
-	if (!spec)
-		return (-1);
+
+	for (j = 0; j < BUFFER_SIZE; j++)
+		spec[j] = '\0';
+
 	_strncpy(spec, fmt + i + 1, *current_len - 1);
 	spec[*current_len - 1] = '\0';
 	sp = validate_spec(spec);
-	free(spec);
+
 	return (sp);
 }
 
