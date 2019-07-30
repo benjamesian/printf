@@ -105,8 +105,6 @@ Unknown:[%z]
 
 ## Authors
 
-[Ben Cook]
-(https://github.com/benjamesian)
+[Ben Cook](https://github.com/benjamesian)
 
-[Brent Muha]
-(https://github.com/bmuha1)
+[Brent Muha](https://github.com/bmuha1)
