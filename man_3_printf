@@ -47,6 +47,9 @@ The int argument is converted to signed decimal notation.
 o, u, x, X
 The \fIunsigned int\fR argument is converted to an unsigned octal (o), unsigned decimal (u), or unsigned hexadecimal (x and X) notation.  The letters abcdef are used for x conversions; the letters ABCDEF are used for X conversions.
 .TP
+b
+The \fIunsigned int\fR argument is converted to an unsigned binary notation.
+.TP
 c
 The \fIint\fR argument is converted to an \fIunsigned char\fR, and the resulting character is written.
 .TP
@@ -58,6 +61,15 @@ The \fIvoid *\fR pointer argument is printed in hexadecimal (as if by %#x).
 .TP
 %
 A '%' is written.  No argument is converted.  The complete conversion specification is '%%'.
+.TP
+r
+The \fIconst char *\fR argument is expected to be a pointer to an array of character type (pointer to a string).  Characters from the array are written in reverse order up to (but not including) a terminating null byte ('\\0').
+.TP
+R
+The \fIconst char *\fR argument is expected to be a pointer to an array of character type (pointer to a string).  Characters from the array are encoded into ROT13 and written up to (but not including) a terminating null byte ('\\0').
+.TP
+S
+The \fIconst char *\fR argument is expected to be a pointer to an array of character type (pointer to a string).  Characters from the array are written with ASCII values being used in place of non-printable characters.
 .SH EXAMPLE
 To print the number 12345:
 
