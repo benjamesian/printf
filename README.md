@@ -64,7 +64,7 @@ int _printf(const char *format, ...);
 ### Supported Length
 
 | Length | d i | u o x X |
-|:------:|:---:|:--------|
+|:------:|:---:|---------|
 | (none) | int | unsigned int |
 | h | short int | unsigned short int |
 | l | long int | unsigned long int |
