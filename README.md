@@ -27,9 +27,55 @@ int _printf(const char *format, ...);
 gcc -Wall -Werror -Wextra -pedantic *.c
 ```
 
-## Examples
+## Usage
 
 ```bash
+int _printf(const char *format, ...);
+```
+
+## Format Specifiers
+
+### Supported Types
+
+| Type  | Output |
+|:-----:|-----------|
+| c       | Single character |
+| s       | String of characters |
+| d or i  | Signed decimal integer |
+| u       | Unsigned decimal integer |
+| b       | Unsigned binary |
+| o       | Unsigned octal |
+| x       | Unsigned hexadecimal (lowercase) |
+| X       | Unsigned hexadecimal (uppercase) |
+| p       | Pointer address |
+| S       | Print a string of characters, with hexadecimal ASCII value of non-printable characters |
+| r       | Print a string of characters in reverse |
+| R       | Print a string of characters with rot13 substitution |
+| %       | A % followed by another % will write just one % |
+
+### Supported Flags
+
+| Flags   | Description |
+|:------: |-------------|
+| +	  | Forces to precede the result with (+ or -) |
+| (space) | If no sign is written, insert a blank space before the value |
+| #	  | Used with b, o, x, or X specifiers, prints 0, 0, 0x, or 0X respectively for values other than zero |
+
+### Supported Length
+
+| Length | d i | u o x X |
+|:------:|:---:|---------|
+| (none) | int | unsigned int |
+| h | short int | unsigned short int |
+| l | long int | unsigned long int |
+
+### Return Value
+
+Return the number of characters written, excluding the terminating null character to send the string.
+
+## Examples
+
+```c
 $ cat main.c
 #include <limits.h>
 #include <stdio.h>
@@ -71,8 +117,8 @@ int main(void)
     len2 = printf("Percent:[%%]\n");
     _printf("Len:[%d]\n", len);
     printf("Len:[%d]\n", len2);
-    _printf("Unknown:[%z]\n");
-    printf("Unknown:[%z]\n");
+    _printf("Unknown:[%y]\n");
+    printf("Unknown:[%y]\n");
     return (0);
 }
 $ gcc -Wall -Wextra -Werror -pedantic -Wno-format *.c
@@ -99,8 +145,8 @@ Percent:[%]
 Percent:[%]
 Len:[12]
 Len:[12]
-Unknown:[%z]
-Unknown:[%z]
+Unknown:[%y]
+Unknown:[%y]
 ```
 
 ## Authors
