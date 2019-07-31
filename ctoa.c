@@ -12,7 +12,7 @@
  */
 int ctoa(va_list valist, char *buffer, int *pos, int *n_printed, char *spec)
 {
-	char c = va_arg(valist, int);
+	unsigned char c = va_arg(valist, int);
 
 	(void) spec;
 
