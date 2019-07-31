@@ -117,8 +117,8 @@ int main(void)
     len2 = printf("Percent:[%%]\n");
     _printf("Len:[%d]\n", len);
     printf("Len:[%d]\n", len2);
-    _printf("Unknown:[%z]\n");
-    printf("Unknown:[%z]\n");
+    _printf("Unknown:[%y]\n");
+    printf("Unknown:[%y]\n");
     return (0);
 }
 $ gcc -Wall -Wextra -Werror -pedantic -Wno-format *.c
@@ -145,8 +145,8 @@ Percent:[%]
 Percent:[%]
 Len:[12]
 Len:[12]
-Unknown:[%z]
-Unknown:[%z]
+Unknown:[%y]
+Unknown:[%y]
 ```
 
 ## Authors
