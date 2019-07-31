@@ -75,7 +75,7 @@ Return the number of characters written, excluding the terminating null characte
 
 ## Examples
 
-```bash
+```c
 $ cat main.c
 #include <limits.h>
 #include <stdio.h>
