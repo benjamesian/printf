@@ -37,8 +37,8 @@ int _printf(const char *format, ...);
 
 ### Supported Types
 
-| Type    | Output |
-|:-----:|:-----------|
+| Type  | Output |
+|:-----:|-----------|
 | c       | Single character |
 | s       | String of characters |
 | d or i  | Signed decimal integer |
@@ -56,7 +56,7 @@ int _printf(const char *format, ...);
 ### Supported Flags
 
 | Flags   | Description |
-|:------: |:------------|
+|:------: |-------------|
 | +	  | Forces to precede the result with (+ or -) |
 | (space) | If no sign is written, insert a blank space before the value |
 | #	  | Used with b, o, x, or X specifiers, prints 0, 0, 0x, or 0X respectively for values other than zero |
